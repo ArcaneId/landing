@@ -1,0 +1,122 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-label="Guardrail containment visualization">
+  <defs>
+    <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C8B8FF"></stop>
+      <stop offset="50%" stop-color="#19B8E0"></stop>
+      <stop offset="100%" stop-color="#2A1A6B" stop-opacity="0"></stop>
+    </radialGradient>
+    <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"></stop>
+      <stop offset="50%" stop-color="#B9A6FF"></stop>
+      <stop offset="100%" stop-color="#19B8E0"></stop>
+    </radialGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#19B8E0" stop-opacity="0"></stop>
+      <stop offset="60%" stop-color="#19B8E0" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#19B8E0" stop-opacity="0"></stop>
+    </linearGradient>
+    <radialGradient id="ringGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="#3FD5F5" stop-opacity="0"></stop>
+      <stop offset="100%" stop-color="#3FD5F5" stop-opacity="0.5"></stop>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"></feGaussianBlur>
+    </filter>
+    <pattern id="dotGrid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.9" fill="#3FD5F5" opacity="0.22"></circle>
+    </pattern>
+  </defs>
+
+  
+  <rect width="800" height="560" fill="#07080B"></rect>
+
+  
+  <g opacity="0.9">
+    <rect x="0" y="340" width="800" height="220" fill="url(#dotGrid)" opacity="0.35"></rect>
+    <g stroke="#3A2D7A" stroke-width="0.6" opacity="0.7">
+      <line x1="-200" y1="560" x2="400" y2="360"></line>
+      <line x1="0" y1="560" x2="400" y2="360"></line>
+      <line x1="200" y1="560" x2="400" y2="360"></line>
+      <line x1="400" y1="560" x2="400" y2="360"></line>
+      <line x1="600" y1="560" x2="400" y2="360"></line>
+      <line x1="800" y1="560" x2="400" y2="360"></line>
+      <line x1="1000" y1="560" x2="400" y2="360"></line>
+      
+      <line x1="80" y1="540" x2="720" y2="540"></line>
+      <line x1="160" y1="500" x2="640" y2="500"></line>
+      <line x1="220" y1="460" x2="580" y2="460"></line>
+      <line x1="270" y1="420" x2="530" y2="420"></line>
+      <line x1="310" y1="385" x2="490" y2="385"></line>
+    </g>
+    <rect x="0" y="340" width="800" height="220" fill="url(#floorGrad)"></rect>
+  </g>
+
+  
+  <ellipse cx="400" cy="400" rx="260" ry="52" fill="none" stroke="#19B8E0" stroke-width="1.2" opacity="0.55"></ellipse>
+  <ellipse cx="400" cy="400" rx="260" ry="52" fill="none" stroke="url(#ringGrad)" stroke-width="10" opacity="0.8"></ellipse>
+  <ellipse cx="400" cy="400" rx="200" ry="40" fill="none" stroke="#3FD5F5" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"></ellipse>
+
+  
+  <g transform="translate(400 280)">
+    
+    <g opacity="0.35">
+      <path d="M0 -150 L130 -75 L130 75 L0 150 L-130 75 L-130 -75 Z" fill="none" stroke="#5E3BE8" stroke-width="1"></path>
+    </g>
+    
+    <g opacity="0.6">
+      <path d="M0 -120 L104 -60 L104 60 L0 120 L-104 60 L-104 -60 Z" fill="none" stroke="#19B8E0" stroke-width="1.2" stroke-dasharray="4 3"></path>
+    </g>
+    
+    <g>
+      <path d="M0 -90 L78 -45 L78 45 L0 90 L-78 45 L-78 -45 Z" fill="none" stroke="#3FD5F5" stroke-width="1.8"></path>
+      
+      <g fill="#D99A2B">
+        <circle cx="0" cy="-90" r="2.6"></circle>
+        <circle cx="78" cy="-45" r="2.6"></circle>
+        <circle cx="78" cy="45" r="2.6"></circle>
+        <circle cx="0" cy="90" r="2.6"></circle>
+        <circle cx="-78" cy="45" r="2.6"></circle>
+        <circle cx="-78" cy="-45" r="2.6"></circle>
+      </g>
+    </g>
+
+    
+    <circle r="110" fill="url(#orbGrad)" opacity="0.55" filter="url(#blur)"></circle>
+    <circle r="34" fill="url(#coreGrad)"></circle>
+    <circle r="34" fill="none" stroke="#FFFFFF" stroke-width="0.6" opacity="0.6"></circle>
+
+    
+    <g stroke="#D99A2B" stroke-width="0.6" opacity="0.6">
+      <line x1="0" y1="0" x2="0" y2="-90"></line>
+      <line x1="0" y1="0" x2="78" y2="-45"></line>
+      <line x1="0" y1="0" x2="78" y2="45"></line>
+      <line x1="0" y1="0" x2="0" y2="90"></line>
+      <line x1="0" y1="0" x2="-78" y2="45"></line>
+      <line x1="0" y1="0" x2="-78" y2="-45"></line>
+    </g>
+  </g>
+
+  
+  <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#3FD5F5" opacity="0.75">
+    <text x="90" y="180">POLICY:TENANT_ISO</text>
+    <text x="90" y="196" fill="#6C7486">allow=true · ttl=15m</text>
+
+    <text x="600" y="150">POLICY:DATA_BOUNDARY</text>
+    <text x="600" y="166" fill="#6C7486">enforce=hard</text>
+
+    <text x="540" y="470">POLICY:JIT_APPROVAL</text>
+    <text x="540" y="486" fill="#6C7486">requires=human</text>
+
+    <text x="90" y="470">POLICY:SCOPE_LIMIT</text>
+    <text x="90" y="486" fill="#6C7486">read-only · audit</text>
+  </g>
+
+  
+  <g fill="#D99A2B">
+    <circle cx="400" cy="348" r="2.2"></circle>
+    <circle cx="660" cy="400" r="2.2"></circle>
+    <circle cx="140" cy="400" r="2.2"></circle>
+    <circle cx="400" cy="452" r="2.2"></circle>
+  </g>
+</svg>

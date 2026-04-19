@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+/* Fonts loaded via next/font in app/layout.tsx — no external @import needed. */
+
+/* =========================================================================
+   Arcane Identity — Design Tokens
+   Ported from reference colors_and_type.css. Obsidian canvas + Aether Teal
+   (matches the A-mark logo) + Rune Gold.
+   ========================================================================= */
+
+@theme {
+  /* Obsidian scale — near-black, slightly cool */
+  --color-obsidian-950: #07080b;
+  --color-obsidian-900: #0a0c12;
+  --color-obsidian-850: #0f1119;
+  --color-obsidian-800: #141722;
+  --color-obsidian-750: #1a1e2b;
+  --color-obsidian-700: #222738;
+  --color-obsidian-600: #2b3245;
+  --color-obsidian-500: #3a4256;
+
+  /* Steel — neutral text scale */
+  --color-steel-500: #4a5167;
+  --color-steel-400: #6b7389;
+  --color-steel-300: #8991a6;
+  --color-steel-200: #aeb5c6;
+  --color-steel-100: #d3d8e3;
+  --color-steel-050: #eef1f7;
+
+  /* Aether Teal — signature primary */
+  --color-aether-300: #8bf5d8;
+  --color-aether-400: #3fe8c4;
+  --color-aether-500: #1fcba6;
+  --color-aether-600: #12956f;
+  --color-aether-700: #0c6b50;
+  --color-aether-900: #052e24;
+
+  /* Rune Gold — warm sigil accent */
+  --color-rune-300: #ffe3a8;
+  --color-rune-400: #f2c26b;
+  --color-rune-500: #d99a2b;
+  --color-rune-600: #9f6d12;
+
+  /* Ember Coral — alert / deny */
+  --color-ember-400: #ff8a7a;
+  --color-ember-500: #f26050;
+  --color-ember-700: #8a2818;
+
+  /* Semantic */
+  --color-allow: #3fd6a0;
+  --color-review: #f2c26b;
+  --color-deny: #f26050;
+  --color-info: #7fb5ff;
+
+  /* Surfaces */
+  --color-bg-canvas: var(--color-obsidian-950);
+  --color-bg-app: var(--color-obsidian-900);
+  --color-bg-surface: var(--color-obsidian-850);
+  --color-bg-surface-2: var(--color-obsidian-800);
+  --color-bg-surface-hover: var(--color-obsidian-750);
+  --color-bg-inset: #04050a;
+  --color-bg-input: #0d1017;
+
+  /* Foreground */
+  --color-fg-1: var(--color-steel-050);
+  --color-fg-2: var(--color-steel-200);
+  --color-fg-3: var(--color-steel-400);
+  --color-fg-4: var(--color-steel-500);
+  --color-fg-inverse: var(--color-obsidian-900);
+  --color-fg-brand: var(--color-aether-400);
+  --color-fg-sigil: var(--color-rune-400);
+
+  /* Borders */
+  --color-border-1: var(--color-obsidian-600);
+  --color-border-2: var(--color-obsidian-700);
+  --color-border-strong: var(--color-obsidian-500);
+
+  /* Fonts (populated by next/font CSS vars in layout.tsx) */
+  --font-sans:
+    var(--font-plex-sans), 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+  --font-mono:
+    var(--font-dm-mono), 'DM Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas,
+    monospace;
+  --font-serif:
+    var(--font-plex-serif), 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: dark;
+  --aether-glow: rgba(63, 232, 196, 0.28);
+  --focus-ring: color-mix(in oklab, var(--color-aether-400) 55%, transparent);
+}
+
+html,
+body {
+  background: var(--color-bg-app);
+  color: var(--color-fg-1);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-aether-500) 45%, transparent);
+  color: var(--color-steel-050);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-app);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+:where(button, a, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Dot-grid backdrop used on hero + section banners */
+.bg-dotgrid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(63, 232, 196, 0.1) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Soft aether glow shadow */
+.shadow-aether {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-aether-500) 60%, transparent),
+    0 0 28px -6px color-mix(in oklab, var(--color-aether-400) 85%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

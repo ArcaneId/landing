@@ -1,0 +1,62 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none" role="img" aria-label="Decision pulse">
+  <defs>
+    <linearGradient id="laneAllow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3FD6A0" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#3FD6A0" stop-opacity="0.9"></stop>
+      <stop offset="100%" stop-color="#3FD6A0" stop-opacity="0"></stop>
+    </linearGradient>
+    <linearGradient id="laneReview" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F5C969" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#F5C969" stop-opacity="0.9"></stop>
+      <stop offset="100%" stop-color="#F5C969" stop-opacity="0"></stop>
+    </linearGradient>
+    <linearGradient id="laneDeny" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF5A6A" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#FF5A6A" stop-opacity="0.9"></stop>
+      <stop offset="100%" stop-color="#FF5A6A" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="#0C0E13"></rect>
+
+  
+  <g transform="translate(80 180)">
+    <circle r="28" fill="#161A23" stroke="#2A303D" stroke-width="1"></circle>
+    <circle r="10" fill="#19B8E0"></circle>
+    <text x="0" y="55" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#8B93A5">agent.pk-93f</text>
+  </g>
+
+  
+  <g transform="translate(320 180)">
+    <path d="M-40 -60 L40 -60 L60 0 L40 60 L-40 60 L-60 0 Z" fill="#10131A" stroke="#3FD5F5" stroke-width="1.4"></path>
+    <text x="0" y="-8" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#EEF1F7" font-weight="500">POLICY</text>
+    <text x="0" y="10" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B9A6FF">evaluate()</text>
+    <circle cx="0" cy="28" r="3" fill="#D99A2B"></circle>
+  </g>
+
+  
+  <g transform="translate(560 100)">
+    <rect x="-28" y="-18" width="56" height="36" rx="4" fill="#161A23" stroke="#2A303D"></rect>
+    <text x="0" y="5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#3FD6A0">allow</text>
+  </g>
+  <g transform="translate(560 180)">
+    <rect x="-28" y="-18" width="56" height="36" rx="4" fill="#161A23" stroke="#2A303D"></rect>
+    <text x="0" y="5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#F5C969">review</text>
+  </g>
+  <g transform="translate(560 260)">
+    <rect x="-28" y="-18" width="56" height="36" rx="4" fill="#161A23" stroke="#2A303D"></rect>
+    <text x="0" y="5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FF5A6A">deny</text>
+  </g>
+
+  
+  <line x1="108" y1="180" x2="260" y2="180" stroke="#19B8E0" stroke-width="1.4"></line>
+  
+  <path d="M380 180 C 440 180 480 100 532 100" stroke="url(#laneAllow)" stroke-width="2.5" fill="none"></path>
+  <path d="M380 180 C 440 180 480 180 532 180" stroke="url(#laneReview)" stroke-width="2.5" fill="none"></path>
+  <path d="M380 180 C 440 180 480 260 532 260" stroke="url(#laneDeny)" stroke-width="2.5" fill="none"></path>
+
+  
+  <circle r="3" fill="#3FD6A0">
+    
+  </circle>
+</svg>
