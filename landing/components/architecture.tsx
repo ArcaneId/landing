@@ -29,22 +29,6 @@ export function Architecture() {
             <ArchitectureOverviewDiagram />
           </div>
         </div>
-
-        {/* node legend */}
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
-          {architecture.nodes.map((n) => (
-            <div
-              key={n.n}
-              className="rounded-lg border border-border-1 bg-obsidian-850 px-3 py-3"
-            >
-              <div className="font-mono text-[9.5px] tracking-[0.18em] text-rune-500 uppercase">
-                {n.n}
-              </div>
-              <div className="mt-1 text-[13px] font-medium text-fg-1">{n.tag}</div>
-              <div className="mt-1 font-mono text-[10.5px] leading-[1.5] text-fg-3">{n.body}</div>
-            </div>
-          ))}
-        </div>
       </Container>
     </section>
   );

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Sans, IBM_Plex_Serif, DM_Mono } from 'next/font/google';
 import clsx from 'clsx';
 import type { ReactNode } from 'react';
+import { AccessModalProvider } from '@/components/access-modal';
 
 const plexSans = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
@@ -42,14 +43,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={clsx(plexSans.variable, plexSerif.variable, dmMono.variable)}>
-      <body className="bg-obsidian-900 text-fg-1 antialiased">
+      <body className="bg-obsidian-900 text-fg-1 antialiased" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-aether-500 focus:px-3 focus:py-2 focus:text-obsidian-950"
         >
           Skip to content
         </a>
-        {children}
+        <AccessModalProvider>{children}</AccessModalProvider>
       </body>
     </html>
   );

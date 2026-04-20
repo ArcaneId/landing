@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import { Container } from './ui/container';
 import { Eyebrow } from './ui/eyebrow';
 import { Button } from './ui/button';
 import { GuardrailConsole } from './guardrail-console';
+import { useAccessModal } from './access-modal';
 import { hero } from '@/lib/content';
 
 export function Hero() {
+  const access = useAccessModal();
   return (
     <section
       id="hero"
@@ -45,7 +49,7 @@ export function Hero() {
             {hero.sub}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button as="a" href="#cta" icon="→">
+            <Button onClick={access.open} icon="→">
               {hero.primaryCta}
             </Button>
             <Button as="a" href="#architecture" variant="ghost">

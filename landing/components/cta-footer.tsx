@@ -1,10 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import { Container } from './ui/container';
 import { Eyebrow } from './ui/eyebrow';
 import { Button } from './ui/button';
+import { useAccessModal } from './access-modal';
 import { cta, footer } from '@/lib/content';
 
 export function CtaAndFooter() {
+  const access = useAccessModal();
   return (
     <>
       <section id="cta" className="relative overflow-hidden border-y border-border-2 px-7 py-[120px] lg:py-[140px]">
@@ -31,7 +35,7 @@ export function CtaAndFooter() {
             </h2>
             <p className="mt-6 max-w-[640px] text-[17px] leading-[1.55] text-fg-2">{cta.sub}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button as="a" href="mailto:access@arcane.id" icon="→">
+              <Button onClick={access.open} icon="→">
                 {cta.primary}
               </Button>
               <Button as="a" href="mailto:briefing@arcane.id" variant="ghost">

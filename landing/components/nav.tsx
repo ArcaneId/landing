@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { Button } from './ui/button';
+import { useAccessModal } from './access-modal';
 
 const links = [
   { label: 'Platform', href: '#architecture' },
@@ -9,6 +12,7 @@ const links = [
 ];
 
 export function Nav() {
+  const access = useAccessModal();
   return (
     <nav
       aria-label="Primary"
@@ -40,13 +44,11 @@ export function Nav() {
             </a>
           ))}
           <div className="h-[18px] w-px bg-border-1" aria-hidden />
-          <a href="#" className="text-[13px] text-fg-2 transition-colors hover:text-fg-1">
+          <a href="https://aim.arcaneidentity.com" className="text-[13px] text-fg-2 transition-colors hover:text-fg-1">
             Sign in
           </a>
         </div>
-        <Button as="a" href="#cta">
-          Request access
-        </Button>
+        <Button onClick={access.open}>Request access</Button>
       </div>
     </nav>
   );

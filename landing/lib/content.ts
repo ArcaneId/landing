@@ -7,7 +7,7 @@ export const hero = {
   headlineSerif: 'the agents',
   headlineTrail: 'that act on your behalf.',
   sub:
-    'Arcane is the identity, authorization, and policy enforcement layer for AI agents. Let agents interact with real systems — APIs, SaaS, internal tools, MCP servers — without handing them unchecked access.',
+    'Arcane is the identity, authorization, and governance layer for AI agents. Let agents interact with real systems — APIs, SaaS, internal tools, MCP servers — without handing them unchecked access.',
   primaryCta: 'Request access',
   secondaryCta: 'Read the architecture brief',
   specs: [
@@ -64,17 +64,31 @@ export const architecture = {
   eyebrow: 'Architecture at a glance',
   title: 'One policy engine. Two paths to the resource. Every action explained.',
   lead:
-    'A user delegates to an agent. The agent executes on a workload. Arcane binds all three, issues a short-lived token for the task, evaluates it against policy, and enforces the decision in-line.',
-  nodes: [
-    { n: '01', tag: 'User', body: 'Identity provider — Okta, Entra, Google' },
-    { n: '02', tag: 'Agent', body: 'Registered software actor · trust tier' },
-    { n: '03', tag: 'Workload', body: 'Attested runtime · SPIFFE / platform OIDC' },
-    { n: '04', tag: 'STS', body: 'RFC 8693 exchange · composite binding' },
-    { n: '05', tag: 'Arcane Token', body: 'Scoped · task-bound · ttl 15m' },
-    { n: '06', tag: 'Policy fabric', body: 'Rego · Cedar · ABAC · dry-run' },
-    { n: '07', tag: 'Enforcement', body: 'MCP SDK · transparent proxy' },
-    { n: '08', tag: 'Resource', body: 'APIs · SaaS · internal tools · MCP' },
+    'Arcane binds user · agent · workload into one composite identity, exchanges it for a short-lived token, evaluates it against policy, and enforces the decision in-line — either embedded in your MCP server or in front of a third-party resource.',
+  controlPlane: [
+    { tag: '01', name: 'Composite identity', sub: 'bind user · agent · workload' },
+    { tag: '02', name: 'STS exchange', sub: 'RFC 8693 · compose + sign' },
+    { tag: '03', name: 'Arcane Token', sub: 'scoped · task-bound · ttl 15m' },
+    { tag: '04', name: 'Policy fabric', sub: 'rego · cedar · <5ms' },
   ] as const,
+  audit: { label: 'audit log · signed', sub: 'per action' },
+  enforcement: {
+    sdk: {
+      tag: 'MCP SDK',
+      name: 'MCP Server · your infra',
+      tagline: 'embedded · in-proc · pre-tool',
+      codeLabel: 'arcane.sdk.authorize()',
+      whenToUse: 'You own the server and can add a dependency.',
+    },
+    proxy: {
+      tag: 'Arcane Proxy',
+      name: 'Arcane Proxy · in-line',
+      tagline: 'inspect · enforce · forward',
+      codeLabel: 'inspect · enforce',
+      whenToUse: 'The upstream is closed-source or off-limits.',
+    },
+  },
+  lanesCaption: 'Two enforcement paths · one policy engine',
 };
 
 export const compositeIdentity = {
@@ -253,6 +267,29 @@ export const cta = {
   secondary: 'Book a briefing',
 };
 
+export const accessForm = {
+  title: 'Request access',
+  lead:
+    'Tell us a little about what you\'re building. We respond within one business day.',
+  fields: {
+    email: { label: 'Work email', placeholder: 'you@company.com' },
+    company: { label: 'Company', placeholder: 'Acme Corp' },
+    role: { label: 'Role', placeholder: 'Eng leader, security, founder…' },
+    intent: {
+      label: 'What are you trying to do?',
+      placeholder: 'Agents touching production data, MCP servers in regulated env, etc.',
+    },
+  },
+  submit: 'Request access',
+  submitting: 'Submitting…',
+  successTitle: 'You\'re on the list.',
+  successSub:
+    'A founder will be in touch shortly. While you\'re here, grab a kickoff call:',
+  bookingCaption: '15 min · founder · no slides',
+  errorCopy: 'Submission failed. Try again, or email access@arcane.id.',
+  closeLabel: 'Close',
+};
+
 export const footer = {
   tagline: 'Agent authorization and governance control plane.',
   cols: [
@@ -262,5 +299,5 @@ export const footer = {
     { h: 'Contact', l: ['Request access', 'Book a briefing', 'Security disclosure', 'hello@arcane.id'] },
   ] as const,
   legal: 'arcane identity · © 2026',
-  compliance: 'soc 2 type ii · iso 27001 · built for regulated enterprise',
+  compliance: 'built for regulated enterprise',
 };
