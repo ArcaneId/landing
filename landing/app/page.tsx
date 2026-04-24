@@ -1,5 +1,7 @@
 import { Nav } from '@/components/nav';
 import { Hero } from '@/components/hero';
+import { HowItWorks } from '@/components/how-it-works';
+import { BuyerOutcomes } from '@/components/buyer-outcomes';
 import { ThreatModel } from '@/components/threat-model';
 import { Architecture } from '@/components/architecture';
 import { CompositeIdentity } from '@/components/primitives/composite-identity';
@@ -9,6 +11,7 @@ import { EnforcementPlane } from '@/components/primitives/enforcement';
 import { DefenseInDepth } from '@/components/defense-in-depth';
 import { Observability } from '@/components/observability';
 import { Compliance } from '@/components/compliance';
+import { ConversionBand } from '@/components/conversion-band';
 import { CtaAndFooter } from '@/components/cta-footer';
 
 export default function Page() {
@@ -17,8 +20,11 @@ export default function Page() {
       <Nav />
       <main id="main">
         <Hero />
+        <HowItWorks />
+        <BuyerOutcomes />
         <ThreatModel />
         <Architecture />
+        <ConversionBand />
         <CompositeIdentity />
         <StsAndToken />
         <PolicyEngine />

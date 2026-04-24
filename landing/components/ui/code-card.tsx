@@ -8,12 +8,14 @@ export function CodeCard({
   trailing,
   children,
   className,
+  contentClassName,
 }: {
   label?: ReactNode;
   labelTone?: 'rune' | 'aether' | 'muted';
   trailing?: ReactNode;
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
 }) {
   return (
     <SpecCard
@@ -22,7 +24,12 @@ export function CodeCard({
       trailing={trailing}
       className={clsx('bg-[var(--color-bg-inset)]', className)}
     >
-      <pre className="m-0 overflow-x-auto px-5 py-4 font-mono text-[12.5px] leading-[1.7] text-fg-2">
+      <pre
+        className={clsx(
+          'm-0 overflow-x-auto px-5 py-4 font-mono text-[12.5px] leading-[1.7] text-fg-2',
+          contentClassName,
+        )}
+      >
         {children}
       </pre>
     </SpecCard>

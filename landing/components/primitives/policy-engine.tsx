@@ -16,7 +16,7 @@ export function PolicyEngine() {
   return (
     <section id="policy" className="px-7 py-[96px] lg:py-[120px]">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16 lg:items-center">
           <div>
             <Eyebrow>{policy.eyebrow}</Eyebrow>
             <h2 className="mt-5 text-[36px] font-medium leading-[1.05] tracking-[-0.032em] md:text-[44px]">
@@ -47,31 +47,20 @@ export function PolicyEngine() {
                 </code>
               </CodeCard>
             </div>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {policy.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-border-1 bg-obsidian-850 px-3 py-1.5 font-mono text-[11.5px] text-fg-2"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
           </div>
 
           <div>
             <SpecCard label="△ Decision lanes" trailing="24h · 14.2M evals">
               <PolicyHexDiagram />
-              <div className="grid grid-cols-3 border-t border-border-2 px-5 py-3">
+              <div className="grid grid-cols-3 border-t border-border-2 px-6 py-4">
                 {policy.lanes.map((l) => (
                   <div key={l.k}>
-                    <div className="font-mono text-[9.5px] tracking-[0.18em] text-fg-4 uppercase">
+                    <div className="font-mono text-[10.5px] tracking-[0.18em] text-fg-4 uppercase">
                       {l.k}
                     </div>
                     <div
                       className={clsx(
-                        'mt-1 font-mono text-[20px] tracking-[-0.02em]',
+                        'mt-1.5 font-mono text-[26px] tracking-[-0.02em]',
                         toneClass[l.tone],
                       )}
                     >

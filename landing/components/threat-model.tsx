@@ -4,7 +4,10 @@ import { threatModel } from '@/lib/content';
 
 export function ThreatModel() {
   return (
-    <section id="problem" className="px-7 py-[96px] lg:py-[120px]">
+    <section
+      id="problem"
+      className="border-y border-border-2 bg-obsidian-950 px-7 py-[96px] lg:py-[120px]"
+    >
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div>
@@ -34,7 +37,7 @@ export function ThreatModel() {
 
           {/* control matrix */}
           <div>
-            <div className="mb-3 grid grid-cols-[1.2fr_1fr_0.8fr] gap-3 px-1 font-mono text-[9.5px] tracking-[0.18em] text-fg-4 uppercase">
+            <div className="mb-3 hidden grid-cols-[1.2fr_1fr_0.8fr] gap-3 px-1 font-mono text-[9.5px] tracking-[0.18em] text-fg-4 uppercase md:grid">
               <span>Agent behavior</span>
               <span>Legacy auth expresses</span>
               <span>Gap</span>
@@ -44,13 +47,24 @@ export function ThreatModel() {
               {threatModel.rows.map((row, i) => (
                 <div
                   key={i}
-                  className={`grid grid-cols-[1.2fr_1fr_0.8fr] gap-3 px-4 py-4 text-[13.5px] ${
+                  className={`grid grid-cols-1 gap-3 px-4 py-4 text-[13.5px] md:grid-cols-[1.2fr_1fr_0.8fr] ${
                     i > 0 ? 'border-t border-border-2' : ''
                   }`}
                 >
-                  <span className="text-fg-1">{row.agent}</span>
-                  <span className="font-mono text-[12px] text-fg-3">{row.legacy}</span>
-                  <span className="font-mono text-[11px] tracking-[0.04em] text-rune-400 uppercase">
+                  <div>
+                    <span className="font-mono text-[9.5px] tracking-[0.16em] text-fg-4 uppercase md:hidden">
+                      Agent behavior
+                    </span>
+                    <div className="mt-1 text-fg-1 md:mt-0">{row.agent}</div>
+                  </div>
+                  <div>
+                    <span className="font-mono text-[9.5px] tracking-[0.16em] text-fg-4 uppercase md:hidden">
+                      Legacy auth
+                    </span>
+                    <div className="mt-1 font-mono text-[12px] text-fg-3 md:mt-0">{row.legacy}</div>
+                  </div>
+                  <span className="font-mono text-[11px] tracking-[0.04em] text-rune-400 uppercase md:self-start">
+                    <span className="mr-2 text-fg-4 md:hidden">Gap</span>
                     {row.gap}
                   </span>
                 </div>

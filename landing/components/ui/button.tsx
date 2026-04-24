@@ -4,15 +4,15 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'reac
 type Variant = 'primary' | 'ghost' | 'secondary';
 
 const base =
-  'inline-flex items-center gap-2.5 rounded-md px-5 py-3 font-sans text-[13px] font-medium tracking-[0.005em] transition-colors duration-150';
+  'inline-flex min-h-[46px] items-center justify-center gap-2.5 rounded-lg px-5 py-3 font-sans text-[13px] font-medium tracking-[-0.01em] transition-[background-color,border-color,color,transform,box-shadow] duration-150 hover:-translate-y-px';
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-aether-500 text-obsidian-950 shadow-aether hover:bg-aether-400 focus-visible:bg-aether-400',
+    'bg-aether-500 text-obsidian-950 shadow-[0_18px_40px_-22px_rgba(63,232,196,0.85)] shadow-aether hover:bg-aether-400 focus-visible:bg-aether-400',
   ghost:
-    'bg-transparent text-fg-1 border border-border-1 hover:border-border-strong hover:bg-obsidian-850',
+    'border border-border-1 bg-transparent text-fg-1 hover:border-border-strong hover:bg-obsidian-850',
   secondary:
-    'bg-obsidian-850 text-fg-1 border border-border-1 hover:bg-obsidian-800',
+    'border border-border-1 bg-obsidian-850 text-fg-1 hover:bg-obsidian-800',
 };
 
 type ButtonProps =

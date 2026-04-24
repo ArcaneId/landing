@@ -27,7 +27,7 @@ export function SectionHeader({
       {eyebrow && <Eyebrow glyph={eyebrowGlyph}>{eyebrow}</Eyebrow>}
       <h2
         className={clsx(
-          'mt-4 text-[42px] font-medium leading-[1.05] tracking-[-0.032em] text-fg-1',
+          'mt-4 text-[36px] font-medium leading-[1.05] tracking-[-0.032em] text-fg-1',
           'md:text-5xl',
         )}
       >

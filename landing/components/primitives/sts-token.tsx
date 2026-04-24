@@ -1,7 +1,6 @@
 import { Container } from '../ui/container';
 import { Eyebrow } from '../ui/eyebrow';
 import { CodeCard } from '../ui/code-card';
-import { SpecCard } from '../ui/spec-card';
 import { StsFlowDiagram } from '../diagrams/sts-flow';
 import { sts } from '@/lib/content';
 
@@ -12,7 +11,7 @@ export function StsAndToken() {
       className="border-y border-border-2 bg-obsidian-950 px-7 py-[96px] lg:py-[120px]"
     >
       <Container>
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <Eyebrow>{sts.eyebrow}</Eyebrow>
             <h2 className="mt-5 text-[36px] font-medium leading-[1.05] tracking-[-0.032em] md:text-[44px]">
@@ -24,7 +23,12 @@ export function StsAndToken() {
             </p>
           </div>
 
-          <CodeCard label="Arcane_token · decoded" labelTone="aether" trailing="issued 14:02:07 UTC">
+          <CodeCard
+            label="Arcane_token · decoded"
+            labelTone="aether"
+            trailing="issued 14:02:07 UTC"
+            contentClassName="text-[14px] leading-[1.82] lg:text-[15px]"
+          >
             <code>
               <span className="text-fg-4">{`{`}</span>
               {'\n  '}
@@ -55,24 +59,9 @@ export function StsAndToken() {
           </CodeCard>
         </div>
 
-        <div className="mt-14">
-          <SpecCard label="△ STS flow" trailing="exchange → validate → issue → expire">
+        <div className="mt-12">
+          <div className="overflow-hidden rounded-[14px] border border-border-1 bg-obsidian-950">
             <StsFlowDiagram />
-          </SpecCard>
-
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {sts.flow.map((s) => (
-              <div
-                key={s.n}
-                className="rounded-lg border border-border-1 bg-obsidian-850 px-4 py-3"
-              >
-                <div className="font-mono text-[9.5px] tracking-[0.18em] text-rune-500 uppercase">
-                  {s.n}
-                </div>
-                <div className="mt-1 text-[13px] font-medium text-fg-1">{s.label}</div>
-                <div className="mt-1 font-mono text-[10.5px] text-fg-3">{s.sub}</div>
-              </div>
-            ))}
           </div>
         </div>
       </Container>

@@ -17,6 +17,64 @@ export const hero = {
   ] as const,
   trustedByLabel: 'Deployed inside',
   trustedBy: ['SIGIL', 'OBELISK', 'HEXROW', 'AEGIS', 'ORYX'] as const,
+  buyerSignals: [
+    {
+      title: 'Security teams keep approval lanes',
+      body: 'Escalations become explicit review points instead of hidden side effects inside an agent run.',
+    },
+    {
+      title: 'Platform teams ship without broad credentials',
+      body: 'Short-lived, task-bound tokens replace static keys and shared service-account ceilings.',
+    },
+    {
+      title: 'Compliance gets an audit trail that explains itself',
+      body: 'Every allow, review, and deny is attributable to a rule, version, actor, and workload.',
+    },
+  ] as const,
+};
+
+export const buyerJourney = {
+  eyebrow: 'Why buyers lean in',
+  title: 'Agents move at machine speed without becoming a control failure.',
+  lead:
+    'Organizations are replacing human workflows with agents — and losing the accountability, least-privilege discipline, and audit trails that came with human actors under IAM. Arcane restores all three without slowing agent rollout.',
+  cards: [
+    {
+      tag: '01',
+      title: 'Sub-scope enforcement, not just scoped tokens',
+      body: 'Not "can this agent call GitHub" — "this agent can push to feature branches, not main" and "can SELECT from logs, not users." Argument-level decisions no token broker can replicate.',
+    },
+    {
+      tag: '02',
+      title: 'Action-level observability across every protocol',
+      body: 'Proxy-position enforcement sees what the agent actually did — MCP, A2A, CLI, or raw HTTP — not just that a token was issued. Every decision signed, every chain attributable.',
+    },
+    {
+      tag: '03',
+      title: 'Policy that evolves with agent behavior',
+      body: 'Observed traffic auto-suggests least-privilege policies, detects drift, scores efficacy, and generates compliance-ready reports. Governance keeps pace as agents change.',
+    },
+  ] as const,
+};
+
+export const conversionMoments = {
+  inline: {
+    eyebrow: 'See the operating model',
+    title: 'If the enforcement layer looks like the one your agents need, the next step is a technical briefing.',
+    body:
+      'Arcane is evaluated through a security and platform conversation — not a signup form. Fifteen minutes with a founder gets you the architecture in context, the policy model on your systems, and an honest answer on fit.',
+    primary: 'Book a briefing',
+    secondary: 'Request access',
+  },
+  final: {
+    eyebrow: 'Adopt the control plane',
+    title: 'Ship agents to production.',
+    titleLine2: 'Keep your compliance posture.',
+    sub:
+      'Arcane Identity is in limited availability. We partner with security and platform teams at regulated enterprises putting agents on the critical path — with the argument-level enforcement, audit chain, and governance loop their auditors will ask about.',
+    primary: 'Request access',
+    secondary: 'Book a briefing',
+  },
 };
 
 export const threatModel = {
@@ -140,7 +198,6 @@ export const policy = {
   title: 'Declarative rules. Deterministic decisions.',
   lead:
     'The policy engine evaluates the Arcane Token\'s composite identity and task context against your rules — rules that draw on the user\'s role, the agent\'s trust tier, the workload\'s network zone, or attributes of the target resource itself.',
-  tags: ['Rego', 'Cedar', 'Attribute-based', 'Dry-run against real traffic', 'Versioned · signed'] as const,
   lanes: [
     { k: 'Allow', v: '92.4%', tone: 'allow' as const },
     { k: 'Review', v: '5.1%', tone: 'review' as const },
@@ -257,16 +314,6 @@ export const compliance = {
   ] as const,
 };
 
-export const cta = {
-  eyebrow: 'Adopt the control plane',
-  title: 'Ship agents to production.',
-  titleLine2: 'Keep your compliance posture.',
-  sub:
-    'Arcane Identity is in limited availability. We work directly with security and platform teams at regulated enterprises that are putting agents on the critical path.',
-  primary: 'Request access',
-  secondary: 'Book a briefing',
-};
-
 export const accessForm = {
   title: 'Request access',
   lead:
@@ -293,10 +340,13 @@ export const accessForm = {
 export const footer = {
   tagline: 'Agent authorization and governance control plane.',
   cols: [
-    { h: 'Platform', l: ['Composite identity', 'Security Token Service', 'Policy fabric', 'MCP SDK', 'Proxy model'] },
+    {
+      h: 'Platform',
+      l: ['Composite identity', 'Security Token Service', 'Policy fabric', 'MCP SDK', 'Proxy model'],
+    },
     { h: 'Company', l: ['About', 'Customers', 'Careers', 'Press'] },
-    { h: 'Resources', l: ['Docs', 'Architecture brief', 'Changelog', 'Status'] },
-    { h: 'Contact', l: ['Request access', 'Book a briefing', 'Security disclosure', 'hello@arcane.id'] },
+    { h: 'Resources', l: ['Architecture brief', 'Security posture', 'Request access'] },
+    { h: 'Contact', l: ['Book a briefing', 'Security disclosure', 'hello@arcane.id'] },
   ] as const,
   legal: 'arcane identity · © 2026',
   compliance: 'built for regulated enterprise',

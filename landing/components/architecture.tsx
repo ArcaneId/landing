@@ -5,10 +5,7 @@ import { architecture } from '@/lib/content';
 
 export function Architecture() {
   return (
-    <section
-      id="architecture"
-      className="border-y border-border-2 bg-obsidian-950 px-7 py-[96px] lg:py-[120px]"
-    >
+    <section id="architecture" className="px-7 py-[96px] lg:py-[120px]">
       <Container>
         <SectionHeader
           eyebrow={architecture.eyebrow}

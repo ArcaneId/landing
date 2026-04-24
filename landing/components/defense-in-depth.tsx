@@ -51,7 +51,7 @@ export function DefenseInDepth() {
                   Caught by
                 </span>
                 <div className="font-mono text-[12.5px] leading-[1.55] text-aether-300">
-                  → {s.caught}
+                  {s.caught}
                 </div>
               </div>
               <div className="flex items-center">

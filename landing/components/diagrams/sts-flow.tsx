@@ -54,7 +54,7 @@ export function StsFlowDiagram() {
   );
 
   return (
-    <svg viewBox="0 0 960 280" width="100%" role="img" aria-label="STS delegation flow" className="block">
+    <svg viewBox="0 0 960 236" width="100%" role="img" aria-label="STS delegation flow" className="block">
       <defs>
         <pattern id="stsDots2" width="22" height="22" patternUnits="userSpaceOnUse">
           <circle cx="1" cy="1" r="0.9" fill="#1FCBA6" opacity="0.14" />
@@ -71,12 +71,12 @@ export function StsFlowDiagram() {
           <path d="M0 0 L10 5 L0 10 z" fill="#3FE8C4" />
         </marker>
       </defs>
-      <rect width="960" height="280" fill="#0A0C12" />
-      <rect width="960" height="280" fill="url(#stsDots2)" opacity="0.7" />
+      <rect width="960" height="236" fill="#0A0C12" />
+      <rect width="960" height="236" fill="url(#stsDots2)" opacity="0.7" />
 
       <text
         x="480"
-        y="44"
+        y="32"
         textAnchor="middle"
         fontFamily="DM Mono, monospace"
         fontSize="10"
@@ -86,15 +86,15 @@ export function StsFlowDiagram() {
         ◇ EVERY ACTION · EPHEMERAL · SCOPED TO THE TASK
       </text>
 
-      <Node x={110} y={150} eyebrow="01 · DELEGATE" title="User delegates" sub="task descriptor" />
-      <Node x={340} y={150} eyebrow="02 · EXCHANGE" title="Security Token" sub="sts.evaluate()" accent="#D99A2B" />
-      <Node x={570} y={150} eyebrow="03 · ISSUED" title="Arcane Token" sub="scoped · ttl 15m" />
-      <Node x={820} y={150} eyebrow="04 · CONSUME" title="Resource call" sub="policy-bound" />
+      <Node x={110} y={118} eyebrow="01 · DELEGATE" title="User delegates" sub="task descriptor" />
+      <Node x={340} y={118} eyebrow="02 · EXCHANGE" title="Security Token" sub="sts.evaluate()" accent="#D99A2B" />
+      <Node x={570} y={118} eyebrow="03 · ISSUED" title="Arcane Token" sub="scoped · ttl 15m" />
+      <Node x={820} y={118} eyebrow="04 · CONSUME" title="Resource call" sub="policy-bound" />
 
       {[
-        [195, 150, 255, 150],
-        [425, 150, 485, 150],
-        [655, 150, 735, 150],
+        [195, 118, 255, 118],
+        [425, 118, 485, 118],
+        [655, 118, 735, 118],
       ].map(([x1, y1, x2, y2], i) => (
         <line
           key={i}
@@ -110,7 +110,7 @@ export function StsFlowDiagram() {
 
       <text
         x="480"
-        y="248"
+        y="214"
         textAnchor="middle"
         fontFamily="DM Mono, monospace"
         fontSize="10"

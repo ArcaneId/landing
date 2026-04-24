@@ -1,18 +1,68 @@
 'use client';
 
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { forwardRef, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { architecture } from '@/lib/content';
 
 type Lane = 'sdk' | 'proxy';
 
+const VB = { w: 1460, h: 860 };
+const IDENTITY_X = 160;
+const JUNCTION_X = 332;
+const JUNCTION_Y = 410;
+const CP = {
+  x: 400,
+  y: 150,
+  w: 760,
+  h: 470,
+  headerH: 36,
+};
+const CHIP_W = 200;
+const CHIP_H = 88;
+const CHIP_ROW_Y = 282;
+const CHIP_CX = [534, 760, 986];
+const POLICY = {
+  x: 490,
+  y: 390,
+  w: 540,
+  h: 140,
+};
+const AUDIT = {
+  x: CP.x + 200,
+  y: 560,
+  w: CP.w - 400,
+  h: 38,
+};
+const ENF = {
+  x: 1200,
+  y: 244,
+  w: 236,
+};
+const RESOURCE = {
+  x: 1200,
+  y: 440,
+  w: 236,
+};
+
+const PALETTE = {
+  bg: '#07080B',
+  panel: '#0B0E15',
+  panelBorder: '#1A2130',
+  nodeFill: '#121622',
+  nodeStroke: '#222A3D',
+  flow: '#3FE8C4',
+  flowMuted: '#1FCBA6',
+  text: '#EEF1F7',
+  textMuted: '#9CA4B8',
+  textDim: '#6B7389',
+  eyebrow: '#6B7389',
+  audit: '#D99A2B',
+  auditText: '#E8B45C',
+};
+
 export function ArchitectureOverviewDiagram() {
   const [lane, setLane] = useState<Lane>('sdk');
-  const reduced = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const showPackets = mounted && !reduced;
 
   const sdkRef = useRef<HTMLButtonElement>(null);
   const proxyRef = useRef<HTMLButtonElement>(null);
@@ -26,10 +76,16 @@ export function ArchitectureOverviewDiagram() {
     }
   };
 
+  const [compositeCx, stsCx, tokenCx] = CHIP_CX;
+  const policyCx = POLICY.x + POLICY.w / 2;
+  const policyRight = POLICY.x + POLICY.w;
+  const policyCy = POLICY.y + POLICY.h / 2;
+  const enfCx = ENF.x + ENF.w / 2;
+  const resourceCx = RESOURCE.x + RESOURCE.w / 2;
+
   return (
     <div>
-      {/* Tab bar */}
-      <div className="flex flex-wrap items-center gap-3 border-b border-border-2 bg-obsidian-950 px-4 py-2.5">
+      <div className="flex flex-wrap items-center gap-3 border-b border-border-2 bg-obsidian-950 px-4 py-3">
         <div role="tablist" aria-label="Enforcement mode" className="flex gap-1.5">
           <LaneTab
             ref={sdkRef}
@@ -46,14 +102,14 @@ export function ArchitectureOverviewDiagram() {
             label={architecture.enforcement.proxy.tag}
           />
         </div>
-        <span className="ml-auto font-mono text-[10.5px] tracking-[0.16em] text-fg-4 uppercase">
+        <span className="ml-auto font-mono text-[11px] tracking-[0.16em] text-fg-4 uppercase">
           {architecture.lanesCaption}
         </span>
       </div>
 
       <div role="tabpanel" id="arch-lane-panel">
         <svg
-          viewBox="0 0 1200 600"
+          viewBox={`0 0 ${VB.w} ${VB.h}`}
           width="100%"
           role="img"
           aria-labelledby="archTitle archDesc"
@@ -68,34 +124,34 @@ export function ArchitectureOverviewDiagram() {
           </desc>
 
           <defs>
-            <pattern id="archDots" width="22" height="22" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="0.9" fill="#1FCBA6" opacity="0.14" />
+            <pattern id="archDots" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.8" fill="#1FCBA6" opacity="0.08" />
             </pattern>
             <linearGradient id="archFlow" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#3FE8C4" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#3FE8C4" stopOpacity="0.5" />
+              <stop offset="0%" stopColor={PALETTE.flow} stopOpacity="0.95" />
+              <stop offset="100%" stopColor={PALETTE.flow} stopOpacity="0.65" />
             </linearGradient>
             <marker
               id="archArrow"
               viewBox="0 0 10 10"
               refX="9"
               refY="5"
-              markerWidth="5"
-              markerHeight="5"
+              markerWidth="6"
+              markerHeight="6"
               orient="auto"
             >
-              <path d="M0 0 L10 5 L0 10 z" fill="#3FE8C4" />
+              <path d="M0 0 L10 5 L0 10 z" fill={PALETTE.flow} />
             </marker>
             <marker
               id="archArrowMuted"
               viewBox="0 0 10 10"
               refX="9"
               refY="5"
-              markerWidth="5"
-              markerHeight="5"
+              markerWidth="6"
+              markerHeight="6"
               orient="auto"
             >
-              <path d="M0 0 L10 5 L0 10 z" fill="#D99A2B" />
+              <path d="M0 0 L10 5 L0 10 z" fill={PALETTE.audit} />
             </marker>
             <filter id="archGlow" x="-40%" y="-40%" width="180%" height="180%">
               <feGaussianBlur stdDeviation="2.4" result="b" />
@@ -106,171 +162,151 @@ export function ArchitectureOverviewDiagram() {
             </filter>
           </defs>
 
-          <rect width="1200" height="600" fill="#07080B" />
-          <rect width="1200" height="600" fill="url(#archDots)" />
+          <rect width={VB.w} height={VB.h} fill={PALETTE.bg} />
+          <rect width={VB.w} height={VB.h} fill="url(#archDots)" />
 
-          {/* zone labels */}
-          <text
-            x="90"
-            y="46"
-            fontFamily="DM Mono, monospace"
-            fontSize="9.5"
-            letterSpacing="2.6"
-            fill="#D99A2B"
-          >
-            ◆ IDENTITY INPUTS
-          </text>
-          <text
-            x="450"
-            y="46"
-            fontFamily="DM Mono, monospace"
-            fontSize="9.5"
-            letterSpacing="2.6"
-            fill="#D99A2B"
-          >
-            ◆ ARCANE CONTROL PLANE
-          </text>
-          <text
-            x="900"
-            y="46"
-            fontFamily="DM Mono, monospace"
-            fontSize="9.5"
-            letterSpacing="2.6"
-            fill="#D99A2B"
-          >
-            ◆ ENFORCEMENT
-          </text>
-          <text
-            x="1190"
-            y="46"
-            fontFamily="DM Mono, monospace"
-            fontSize="9.5"
-            letterSpacing="2.6"
-            fill="#D99A2B"
-            textAnchor="end"
-          >
-            ◆ RESOURCE
-          </text>
+          <ZoneLabel x={IDENTITY_X} y={92} anchor="middle" text="IDENTITY INPUTS" />
+          <ZoneLabel x={CP.x + CP.w / 2} y={90} anchor="middle" text="ARCANE CONTROL PLANE" />
+          <ZoneLabel x={ENF.x + ENF.w / 2} y={90} anchor="middle" text="ENFORCEMENT / RESOURCE" />
 
-          {/* control-plane backing panel */}
           <rect
-            x="240"
-            y="80"
-            width="580"
-            height="380"
-            rx="12"
-            fill="#0A0C12"
-            stroke="#12956F"
-            strokeOpacity="0.5"
+            x={CP.x}
+            y={CP.y}
+            width={CP.w}
+            height={CP.h}
+            rx={14}
+            fill={PALETTE.panel}
+            stroke={PALETTE.panelBorder}
           />
-          <rect x="240" y="80" width="580" height="28" fill="#052E24" />
+          <rect x={CP.x} y={CP.y} width={CP.w} height={CP.headerH} rx={14} fill="#071C17" />
+          <rect x={CP.x} y={CP.y + CP.headerH - 14} width={CP.w} height={14} fill="#071C17" />
           <text
-            x="260"
-            y="98"
+            x={CP.x + 20}
+            y={CP.y + 22}
             fontFamily="DM Mono, monospace"
-            fontSize="10"
-            letterSpacing="2"
+            fontSize="11"
+            letterSpacing="2.2"
             fill="#8BF5D8"
           >
             ARCANE · sts.arcane / policy.arcane
           </text>
 
-          {/* identity inputs */}
           <Node
-            x={90}
-            y={150}
-            w={160}
-            tag="01 · USER"
+            cx={IDENTITY_X}
+            cy={240}
+            w={230}
+            tag="USER"
             title="u.olsen@acme"
-            sub="IdP: Okta · finance"
+            sub="IdP · Okta · finance"
           />
           <Node
-            x={90}
-            y={250}
-            w={160}
-            tag="02 · AGENT"
+            cx={IDENTITY_X}
+            cy={JUNCTION_Y}
+            w={230}
+            tag="AGENT"
             title="agent.pk-93f"
             sub="client · trust tier 2"
           />
           <Node
-            x={90}
-            y={350}
-            w={160}
-            tag="03 · WORKLOAD"
+            cx={IDENTITY_X}
+            cy={580}
+            w={230}
+            tag="WORKLOAD"
             title="pod.sre-prod-4"
             sub="attested · SPIFFE"
           />
 
-          {/* control-plane chips (composite → STS → Token → Policy) */}
-          {architecture.controlPlane.map((c, i) => (
+          <g>
+            <circle
+              cx={JUNCTION_X}
+              cy={JUNCTION_Y}
+              r={11}
+              fill={PALETTE.bg}
+              stroke={PALETTE.flow}
+              strokeWidth={1.6}
+            />
+            <circle cx={JUNCTION_X} cy={JUNCTION_Y} r={3} fill={PALETTE.flow} />
+          </g>
+          <text
+            x={JUNCTION_X}
+            y={JUNCTION_Y + 38}
+            textAnchor="middle"
+            fontFamily="DM Mono, monospace"
+            fontSize="10"
+            letterSpacing="1.6"
+            fill={PALETTE.textDim}
+          >
+            bind
+          </text>
+
+          <ArrowPath
+            d={`M ${IDENTITY_X + 115} 240 C ${JUNCTION_X - 70} 240, ${JUNCTION_X - 42} ${JUNCTION_Y}, ${JUNCTION_X - 12} ${JUNCTION_Y}`}
+          />
+          <ArrowPath d={`M ${IDENTITY_X + 115} ${JUNCTION_Y} L ${JUNCTION_X - 12} ${JUNCTION_Y}`} />
+          <ArrowPath
+            d={`M ${IDENTITY_X + 115} 580 C ${JUNCTION_X - 70} 580, ${JUNCTION_X - 42} ${JUNCTION_Y}, ${JUNCTION_X - 12} ${JUNCTION_Y}`}
+          />
+
+          <ArrowPath d={`M ${JUNCTION_X + 12} ${JUNCTION_Y} L ${compositeCx - CHIP_W / 2 - 6} ${CHIP_ROW_Y}`} />
+          <EdgeLabel x={454} y={JUNCTION_Y - 34} text="claims" />
+
+          {architecture.controlPlane.slice(0, 3).map((c, i) => (
             <Chip
               key={c.tag}
-              x={305 + i * 135}
-              y={240}
-              tag={`${c.tag} · ${c.name.split(' ')[0].toUpperCase()}`}
+              cx={CHIP_CX[i]}
+              cy={CHIP_ROW_Y}
+              w={CHIP_W}
+              h={CHIP_H}
+              tag={c.tag}
               name={c.name}
               sub={c.sub}
-              accent={i === 3 ? '#D99A2B' : '#3FE8C4'}
+              accent={PALETTE.flow}
             />
           ))}
 
-          {/* audit pill */}
-          <g transform="translate(710 388)">
-            <rect
-              x={-90}
-              y={-22}
-              width={180}
-              height={44}
-              rx={6}
-              fill="#0F1119"
-              stroke="#9F6D12"
-              strokeOpacity="0.7"
-            />
-            <text
-              x={0}
-              y={-4}
-              textAnchor="middle"
-              fontFamily="DM Mono, monospace"
-              fontSize="9"
-              letterSpacing="2"
-              fill="#D99A2B"
-            >
-              ◆ {architecture.audit.label.toUpperCase()}
-            </text>
-            <text
-              x={0}
-              y={14}
-              textAnchor="middle"
-              fontFamily="DM Mono, monospace"
-              fontSize="10"
-              fill="#AEB5C6"
-            >
-              {architecture.audit.sub}
-            </text>
-          </g>
-
-          {/* visible flow arrows (static portion) */}
-          {/* identity → composite */}
-          <ArrowPath d="M170 150 C 200 150, 215 235, 242 232" />
-          <ArrowPath d="M170 250 L 242 240" />
-          <ArrowPath d="M170 350 C 200 350, 215 245, 242 248" />
-          {/* composite → STS */}
-          <ArrowPath d="M367 240 L 377 240" />
-          {/* STS → Token */}
-          <ArrowPath d="M502 240 L 512 240" />
-          {/* Token → Policy */}
-          <ArrowPath d="M637 240 L 647 240" />
-          {/* Policy → audit (rune accent) */}
           <ArrowPath
-            d="M710 272 L 710 364"
-            stroke="#D99A2B"
-            strokeOpacity={0.6}
-            marker="url(#archArrowMuted)"
+            d={`M ${compositeCx + CHIP_W / 2 + 6} ${CHIP_ROW_Y} L ${stsCx - CHIP_W / 2 - 6} ${CHIP_ROW_Y}`}
           />
-          {/* Policy → enforcement (crosses container border) */}
-          <ArrowPath d="M772 240 L 843 240" />
 
-          {/* enforcement lane subtree — animated swap */}
+          <ArrowPath
+            d={`M ${stsCx + CHIP_W / 2 + 6} ${CHIP_ROW_Y} L ${tokenCx - CHIP_W / 2 - 6} ${CHIP_ROW_Y}`}
+          />
+
+          <LargePolicyCard
+            x={POLICY.x}
+            y={POLICY.y}
+            w={POLICY.w}
+            h={POLICY.h}
+            tag={architecture.controlPlane[3].tag}
+            name={architecture.controlPlane[3].name}
+            sub={architecture.controlPlane[3].sub}
+          />
+
+          <ArrowPath
+            d={`M ${policyCx} ${CHIP_ROW_Y + CHIP_H / 2 + 6} L ${policyCx} ${POLICY.y - 8}`}
+          />
+          <EdgeLabel x={policyCx + 104} y={CHIP_ROW_Y + 56} text="evaluate scoped token" />
+
+          <AuditStrip
+            x={AUDIT.x}
+            y={AUDIT.y}
+            w={AUDIT.w}
+            h={AUDIT.h}
+            text="AUDIT LOG · SIGNED · PER ACTION"
+          />
+
+          {(() => {
+            const startX = policyRight + 8;
+            const endX = ENF.x - 4;
+            const endY = ENF.y + 64;
+            const cornerX = startX + (endX - startX) * 0.55;
+            return (
+              <ArrowPath
+                d={`M ${startX} ${policyCy} C ${cornerX} ${policyCy}, ${cornerX} ${endY}, ${endX} ${endY}`}
+              />
+            );
+          })()}
+
           <AnimatePresence mode="wait">
             {lane === 'sdk' ? (
               <motion.g
@@ -280,83 +316,84 @@ export function ArchitectureOverviewDiagram() {
                 exit={{ opacity: 0, x: -6 }}
                 transition={{ duration: 0.28, ease: [0.2, 0.7, 0.2, 1] }}
               >
-                {/* outer MCP server container */}
                 <rect
-                  x="845"
-                  y="180"
-                  width="180"
-                  height="120"
-                  rx="8"
-                  fill="#141722"
-                  stroke="#3FE8C4"
-                  strokeOpacity="0.55"
+                  x={ENF.x}
+                  y={ENF.y}
+                  width={ENF.w}
+                  height={126}
+                  rx={12}
+                  fill={PALETTE.panel}
+                  stroke={PALETTE.flow}
+                  strokeOpacity={0.55}
                 />
+                <rect
+                  x={ENF.x}
+                  y={ENF.y}
+                  width={ENF.w}
+                  height={28}
+                  rx={12}
+                  fill="#071C17"
+                />
+                <rect x={ENF.x} y={ENF.y + 16} width={ENF.w} height={12} fill="#071C17" />
                 <text
-                  x="857"
-                  y="200"
+                  x={ENF.x + 14}
+                  y={ENF.y + 19}
                   fontFamily="DM Mono, monospace"
-                  fontSize="9"
+                  fontSize="10.5"
                   letterSpacing="2"
                   fill="#8BF5D8"
                 >
                   MCP SERVER · YOUR INFRA
                 </text>
-                {/* nested SDK chip */}
                 <rect
-                  x="865"
-                  y="222"
-                  width="140"
-                  height="24"
-                  rx="4"
-                  fill="#052E24"
-                  stroke="#1FCBA6"
+                  x={ENF.x + 18}
+                  y={ENF.y + 44}
+                  width={ENF.w - 36}
+                  height={34}
+                  rx={5}
+                  fill="#072E24"
+                  stroke={PALETTE.flowMuted}
                 />
                 <text
-                  x="935"
-                  y="238"
+                  x={ENF.x + ENF.w / 2}
+                  y={ENF.y + 64}
                   textAnchor="middle"
                   fontFamily="DM Mono, monospace"
-                  fontSize="10"
-                  fill="#3FE8C4"
+                  fontSize="11"
+                  fill={PALETTE.flow}
                 >
                   {architecture.enforcement.sdk.codeLabel}
                 </text>
                 <text
-                  x="857"
-                  y="266"
+                  x={ENF.x + 18}
+                  y={ENF.y + 95}
                   fontFamily="DM Mono, monospace"
-                  fontSize="9.5"
-                  fill="#8991A6"
+                  fontSize="11"
+                  fill={PALETTE.textMuted}
                 >
                   {architecture.enforcement.sdk.tagline}
                 </text>
                 <text
-                  x="857"
-                  y="282"
+                  x={ENF.x + 18}
+                  y={ENF.y + 113}
                   fontFamily="DM Mono, monospace"
-                  fontSize="9.5"
-                  fill="#6B7389"
+                  fontSize="11"
+                  fill={PALETTE.textDim}
                 >
                   → tool runs in-process
                 </text>
 
-                {/* arrow → resource */}
-                <ArrowPath d="M1025 240 L 1070 240" />
-                {/* resource: tool */}
                 <Node
-                  x={1130}
-                  y={240}
-                  w={120}
-                  tag="08 · RESOURCE"
+                  cx={resourceCx}
+                  cy={RESOURCE.y + 50}
+                  w={RESOURCE.w}
+                  h={100}
+                  tag="RESOURCE"
                   title="Tool"
                   sub="MCP · in-process"
                 />
 
-                {showPackets && (
-                  <g aria-hidden="true">
-                    <Packet path="M843 240 L 1070 240" dur={2.0} begin={0} />
-                  </g>
-                )}
+                <ArrowPath d={`M ${enfCx} ${ENF.y + 126 + 10} L ${resourceCx} ${RESOURCE.y}`} />
               </motion.g>
             ) : (
               <motion.g
@@ -366,97 +403,60 @@ export function ArchitectureOverviewDiagram() {
                 exit={{ opacity: 0, x: -6 }}
                 transition={{ duration: 0.28, ease: [0.2, 0.7, 0.2, 1] }}
               >
-                {/* standalone proxy node */}
                 <Node
-                  x={935}
-                  y={240}
-                  w={180}
-                  h={84}
+                  cx={enfCx}
+                  cy={ENF.y + 48}
+                  w={ENF.w}
+                  h={110}
                   tag="ARCANE PROXY"
                   title="inspect · enforce"
                   sub="forward · deny inline"
-                  accent="#3FE8C4"
                 />
-                {/* arrow → resource (dashed = transparent, no upstream change) */}
-                <ArrowPath d="M1025 240 L 1070 240" dashed />
-                {/* resource: dashed border third-party */}
-                <g transform="translate(1130 240)">
+                <ArrowPath d={`M ${enfCx} ${ENF.y + 108 + 10} L ${resourceCx} ${RESOURCE.y}`} />
+                <g transform={`translate(${resourceCx} ${RESOURCE.y + 50})`}>
                   <rect
-                    x={-60}
-                    y={-36}
-                    width={120}
-                    height={72}
-                    rx={6}
-                    fill="#141722"
-                    stroke="#6B7389"
+                    x={-RESOURCE.w / 2}
+                    y={-50}
+                    width={RESOURCE.w}
+                    height={100}
+                    rx={8}
+                    fill={PALETTE.nodeFill}
+                    stroke={PALETTE.textDim}
                     strokeDasharray="3 3"
                   />
                   <text
-                    x={-46}
-                    y={-16}
+                    x={-60}
+                    y={-26}
                     fontFamily="DM Mono, monospace"
-                    fontSize="9"
+                    fontSize="10"
                     letterSpacing="2"
-                    fill="#D99A2B"
+                    fill={PALETTE.eyebrow}
                   >
-                    08 · RESOURCE
+                    RESOURCE
                   </text>
                   <text
-                    x={-46}
-                    y={4}
+                    x={-60}
+                    y={0}
                     fontFamily="IBM Plex Sans, sans-serif"
-                    fontSize="12"
+                    fontSize="14"
                     fontWeight={500}
-                    fill="#EEF1F7"
+                    fill={PALETTE.text}
                   >
                     Third-party SaaS
                   </text>
-                  <text x={-46} y={22} fontFamily="DM Mono, monospace" fontSize="9.5" fill="#8991A6">
+                  <text
+                    x={-60}
+                    y={22}
+                    fontFamily="DM Mono, monospace"
+                    fontSize="10.5"
+                    fill={PALETTE.textMuted}
+                  >
                     no integration required
                   </text>
                 </g>
-
-                {showPackets && (
-                  <g aria-hidden="true">
-                    <Packet path="M843 240 L 1025 240" dur={1.4} begin={0} />
-                    <Packet path="M1025 240 L 1070 240" dur={0.8} begin={1.4} />
-                  </g>
-                )}
               </motion.g>
             )}
           </AnimatePresence>
-
-          {/* packets — static segments (always present unless reduced motion) */}
-          {showPackets && (
-            <g aria-hidden="true">
-              <Packet path="M170 150 C 200 150, 215 235, 242 232" dur={1.6} begin={0} />
-              <Packet path="M170 250 L 242 240" dur={1.6} begin={0.2} />
-              <Packet path="M170 350 C 200 350, 215 245, 242 248" dur={1.6} begin={0.4} />
-              <Packet path="M367 240 L 377 240" dur={0.6} begin={0.8} />
-              <Packet path="M502 240 L 512 240" dur={0.6} begin={1.0} />
-              <Packet path="M637 240 L 647 240" dur={0.6} begin={1.2} />
-              <Packet
-                path="M710 272 L 710 364"
-                dur={2.0}
-                begin={1.4}
-                color="#D99A2B"
-                opacity={0.55}
-              />
-            </g>
-          )}
-
-          {/* decision annotation */}
-          <text
-            x="600"
-            y="560"
-            textAnchor="middle"
-            fontFamily="DM Mono, monospace"
-            fontSize="10"
-            letterSpacing="2"
-            fill="#4A5167"
-          >
-            deterministic · &lt; 5 ms · cryptographically logged
-          </text>
         </svg>
       </div>
     </div>
@@ -494,87 +494,105 @@ const LaneTab = forwardRef<
   );
 });
 
-function Packet({
-  path,
-  dur,
-  begin,
-  color = '#3FE8C4',
-  opacity = 1,
+function ZoneLabel({
+  x,
+  y,
+  text,
+  anchor = 'start',
 }: {
-  path: string;
-  dur: number;
-  begin: number;
-  color?: string;
-  opacity?: number;
+  x: number;
+  y: number;
+  text: string;
+  anchor?: 'start' | 'middle' | 'end';
 }) {
   return (
-    <circle r={2.6} fill={color} opacity={opacity} filter="url(#archGlow)">
-      <animateMotion
-        dur={`${dur}s`}
-        begin={`${begin}s`}
-        repeatCount="indefinite"
-        path={path}
-        rotate="auto"
-      />
-    </circle>
+    <text
+      x={x}
+      y={y}
+      textAnchor={anchor}
+      fontFamily="DM Mono, monospace"
+      fontSize="11"
+      letterSpacing="3"
+      fill={PALETTE.eyebrow}
+    >
+      {text}
+    </text>
+  );
+}
+
+function EdgeLabel({ x, y, text }: { x: number; y: number; text: string }) {
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      fontFamily="DM Mono, monospace"
+      fontSize="10"
+      letterSpacing="1.4"
+      fill={PALETTE.textDim}
+    >
+      {text}
+    </text>
   );
 }
 
 function Chip({
-  x,
-  y,
+  cx,
+  cy,
+  w,
+  h,
   tag,
   name,
   sub,
-  accent = '#3FE8C4',
+  accent = PALETTE.flow,
 }: {
-  x: number;
-  y: number;
+  cx: number;
+  cy: number;
+  w: number;
+  h: number;
   tag: string;
   name: string;
   sub: string;
   accent?: string;
 }) {
-  const w = 124;
-  const h = 64;
   return (
-    <g transform={`translate(${x} ${y})`}>
+    <g transform={`translate(${cx} ${cy})`}>
       <rect
         x={-w / 2}
         y={-h / 2}
         width={w}
         height={h}
-        rx={6}
-        fill="#141722"
-        stroke="#222738"
+        rx={8}
+        fill={PALETTE.nodeFill}
+        stroke={PALETTE.nodeStroke}
       />
       <rect x={-w / 2} y={-h / 2} width={3} height={h} fill={accent} />
       <text
-        x={-w / 2 + 12}
-        y={-h / 2 + 16}
+        x={-w / 2 + 14}
+        y={-h / 2 + 20}
         fontFamily="DM Mono, monospace"
-        fontSize="8"
-        letterSpacing="1.6"
-        fill="#D99A2B"
+        fontSize="10"
+        letterSpacing="2"
+        fill={PALETTE.eyebrow}
       >
         {tag}
       </text>
       <text
-        x={-w / 2 + 12}
-        y={-h / 2 + 34}
+        x={-w / 2 + 14}
+        y={-h / 2 + 46}
         fontFamily="IBM Plex Sans, sans-serif"
-        fontSize="11.5"
+        fontSize="14"
         fontWeight={500}
-        fill="#EEF1F7"
+        fill={PALETTE.text}
       >
         {name}
       </text>
       <text
-        x={-w / 2 + 12}
-        y={-h / 2 + 52}
+        x={-w / 2 + 14}
+        y={-h / 2 + 68}
         fontFamily="DM Mono, monospace"
-        fontSize="9"
-        fill="#8991A6"
+        fontSize="9.5"
+        fill={PALETTE.textMuted}
       >
         {sub}
       </text>
@@ -583,17 +601,17 @@ function Chip({
 }
 
 function Node({
-  x,
-  y,
-  w = 180,
-  h = 72,
+  cx,
+  cy,
+  w = 220,
+  h = 86,
   tag,
   title,
   sub,
-  accent = '#3FE8C4',
+  accent = PALETTE.flow,
 }: {
-  x: number;
-  y: number;
+  cx: number;
+  cy: number;
   w?: number;
   h?: number;
   tag: string;
@@ -602,35 +620,43 @@ function Node({
   accent?: string;
 }) {
   return (
-    <g transform={`translate(${x} ${y})`}>
-      <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={6} fill="#141722" stroke="#222738" />
+    <g transform={`translate(${cx} ${cy})`}>
+      <rect
+        x={-w / 2}
+        y={-h / 2}
+        width={w}
+        height={h}
+        rx={8}
+        fill={PALETTE.nodeFill}
+        stroke={PALETTE.nodeStroke}
+      />
       <rect x={-w / 2} y={-h / 2} width={3} height={h} fill={accent} />
       <text
-        x={-w / 2 + 14}
-        y={-h / 2 + 18}
+        x={-w / 2 + 16}
+        y={-h / 2 + 20}
         fontFamily="DM Mono, monospace"
-        fontSize="9"
+        fontSize="10"
         letterSpacing="2"
-        fill="#D99A2B"
+        fill={PALETTE.eyebrow}
       >
         {tag}
       </text>
       <text
-        x={-w / 2 + 14}
-        y={-h / 2 + 38}
+        x={-w / 2 + 16}
+        y={-h / 2 + 46}
         fontFamily="IBM Plex Sans, sans-serif"
-        fontSize="13"
-        fontWeight="500"
-        fill="#EEF1F7"
+        fontSize="15"
+        fontWeight={500}
+        fill={PALETTE.text}
       >
         {title}
       </text>
       <text
-        x={-w / 2 + 14}
-        y={-h / 2 + 56}
+        x={-w / 2 + 16}
+        y={-h / 2 + 68}
         fontFamily="DM Mono, monospace"
-        fontSize="10"
-        fill="#8991A6"
+        fontSize="10.5"
+        fill={PALETTE.textMuted}
       >
         {sub}
       </text>
@@ -638,28 +664,194 @@ function Node({
   );
 }
 
+function LargePolicyCard({
+  x,
+  y,
+  w,
+  h,
+  tag,
+  name,
+  sub,
+}: {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  tag: string;
+  name: string;
+  sub: string;
+}) {
+  const iconCx = x + w - 78;
+  const iconCy = y + h / 2;
+  return (
+    <g>
+      <rect x={x} y={y} width={w} height={h} rx={12} fill={PALETTE.nodeFill} stroke={PALETTE.nodeStroke} />
+      <rect x={x} y={y} width={4} height={h} fill={PALETTE.audit} />
+      <text
+        x={x + 22}
+        y={y + 28}
+        fontFamily="DM Mono, monospace"
+        fontSize="10"
+        letterSpacing="2"
+        fill={PALETTE.eyebrow}
+      >
+        {tag}
+      </text>
+      <text
+        x={x + 22}
+        y={y + 62}
+        fontFamily="IBM Plex Sans, sans-serif"
+        fontSize="20"
+        fontWeight={500}
+        fill={PALETTE.text}
+      >
+        {name}
+      </text>
+      <text
+        x={x + 22}
+        y={y + 88}
+        fontFamily="DM Mono, monospace"
+        fontSize="11.5"
+        fill={PALETTE.textMuted}
+      >
+        {sub}
+      </text>
+      <text
+        x={x + 22}
+        y={y + 112}
+        fontFamily="DM Mono, monospace"
+        fontSize="10.5"
+        letterSpacing="1.4"
+        fill={PALETTE.textDim}
+      >
+        deterministic · signed decisions
+      </text>
+      <PolicyHexIcon cx={iconCx} cy={iconCy} size={86} />
+    </g>
+  );
+}
+
+function PolicyHexIcon({
+  cx,
+  cy,
+  size,
+}: {
+  cx: number;
+  cy: number;
+  size: number;
+}) {
+  const r = size / 2;
+  const dx = r * Math.cos(Math.PI / 6);
+  const dy = r * Math.sin(Math.PI / 6);
+  const points = [
+    [cx, cy - r],
+    [cx + dx, cy - dy],
+    [cx + dx, cy + dy],
+    [cx, cy + r],
+    [cx - dx, cy + dy],
+    [cx - dx, cy - dy],
+  ]
+    .map(([px, py]) => `${px},${py}`)
+    .join(' ');
+  const checkStart: [number, number] = [cx - r * 0.36, cy + r * 0.02];
+  const checkMid: [number, number] = [cx - r * 0.08, cy + r * 0.32];
+  const checkEnd: [number, number] = [cx + r * 0.42, cy - r * 0.28];
+  return (
+    <g>
+      <polygon
+        points={points}
+        fill="#062019"
+        stroke={PALETTE.flow}
+        strokeOpacity={0.75}
+        strokeWidth={1.8}
+      />
+      <polygon
+        points={points}
+        fill="none"
+        stroke={PALETTE.flow}
+        strokeOpacity={0.18}
+        strokeWidth={6}
+      />
+      <path
+        d={`M ${checkStart[0]} ${checkStart[1]} L ${checkMid[0]} ${checkMid[1]} L ${checkEnd[0]} ${checkEnd[1]}`}
+        stroke={PALETTE.flow}
+        strokeWidth={3.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+        filter="url(#archGlow)"
+      />
+    </g>
+  );
+}
+
+function AuditStrip({
+  x,
+  y,
+  w,
+  h,
+  text,
+}: {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  text: string;
+}) {
+  return (
+    <g>
+      <rect x={x} y={y} width={w} height={h} rx={8} fill="#140E05" stroke={PALETTE.audit} strokeOpacity={0.55} />
+      <text
+        x={x + w / 2}
+        y={y + 24}
+        textAnchor="middle"
+        fontFamily="DM Mono, monospace"
+        fontSize="11"
+        letterSpacing="2"
+        fill={PALETTE.auditText}
+      >
+        {text}
+      </text>
+    </g>
+  );
+}
+
 function ArrowPath({
   d,
-  stroke = 'url(#archFlow)',
-  strokeOpacity = 1,
-  dashed = false,
-  marker = 'url(#archArrow)',
+  stroke = PALETTE.flow,
+  strokeOpacity = 0.9,
+  muted = false,
+  animated = true,
 }: {
   d: string;
   stroke?: string;
   strokeOpacity?: number;
-  dashed?: boolean;
-  marker?: string;
+  muted?: boolean;
+  animated?: boolean;
 }) {
+  const dashPattern = '7 6';
+  const dashCycle = 13;
   return (
     <path
       d={d}
-      stroke={stroke}
+      stroke={muted ? PALETTE.audit : stroke}
       strokeOpacity={strokeOpacity}
-      strokeWidth="1.4"
+      strokeWidth={1.6}
       fill="none"
-      strokeDasharray={dashed ? '3 3' : undefined}
-      markerEnd={marker}
-    />
+      strokeDasharray={dashPattern}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      markerEnd={muted ? 'url(#archArrowMuted)' : 'url(#archArrow)'}
+    >
+      {animated ? (
+        <animate
+          attributeName="stroke-dashoffset"
+          from={dashCycle}
+          to={0}
+          dur="1.2s"
+          repeatCount="indefinite"
+        />
+      ) : null}
+    </path>
   );
 }

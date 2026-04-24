@@ -100,17 +100,42 @@
   color-scheme: dark;
   --aether-glow: rgba(63, 232, 196, 0.28);
   --focus-ring: color-mix(in oklab, var(--color-aether-400) 55%, transparent);
+  /* Nav height — populated at runtime by <Nav /> via ResizeObserver. Fallback matches md+ single-row nav. */
+  --nav-h: 58px;
+  /*
+   * Anchor offset:
+   * Most anchored sections use ~96px top padding. Offset by (nav - 76px) so
+   * the heading itself lands ~20px below the sticky nav across breakpoints.
+   */
+  --anchor-offset: calc(var(--nav-h) - 76px);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset);
 }
 
 html,
 body {
-  background: var(--color-bg-app);
+  background:
+    radial-gradient(circle at top left, rgba(63, 232, 196, 0.08), transparent 26%),
+    radial-gradient(circle at 85% 18%, rgba(242, 194, 107, 0.06), transparent 20%),
+    linear-gradient(180deg, #0a0c12 0%, #07080b 100%);
   color: var(--color-fg-1);
   font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100vh;
+}
+
+main section[id] {
+  scroll-margin-top: var(--anchor-offset);
 }
 
 ::selection {
@@ -156,6 +181,18 @@ body {
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--color-aether-500) 60%, transparent),
     0 0 28px -6px color-mix(in oklab, var(--color-aether-400) 85%, transparent);
+}
+
+.surface-gradient {
+  background:
+    linear-gradient(180deg, rgba(20, 23, 34, 0.96), rgba(10, 12, 18, 0.98)),
+    linear-gradient(135deg, rgba(63, 232, 196, 0.08), transparent 45%);
+}
+
+.section-atmosphere {
+  background:
+    radial-gradient(circle at top left, rgba(63, 232, 196, 0.12), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(242, 194, 107, 0.08), transparent 28%);
 }
 
 @media (prefers-reduced-motion: reduce) {
