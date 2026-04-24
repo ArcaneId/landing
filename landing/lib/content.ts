@@ -2,7 +2,7 @@
 // pitch, platform features, and technical writeup.
 
 export const hero = {
-  eyebrow: 'Agent authorization · runtime policy · audit',
+  eyebrow: 'Context-Aware Policy · Self-Evolving Governance · Composite Identity',
   headlineLead: 'Identity for',
   headlineSerif: 'the agents',
   headlineTrail: 'that act on your behalf.',
@@ -15,8 +15,6 @@ export const hero = {
     ['Runtime decisions', '< 5ms · deterministic'],
     ['Enforcement', 'SDK + transparent proxy'],
   ] as const,
-  trustedByLabel: 'Deployed inside',
-  trustedBy: ['SIGIL', 'OBELISK', 'HEXROW', 'AEGIS', 'ORYX'] as const,
   buyerSignals: [
     {
       title: 'Security teams keep approval lanes',

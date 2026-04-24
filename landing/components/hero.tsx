@@ -66,21 +66,6 @@ export function Hero() {
           <GuardrailConsole />
         </div>
 
-        {/* trusted-by */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <span className="font-mono text-[10px] tracking-[0.2em] text-fg-4 uppercase">
-            {hero.trustedByLabel}
-          </span>
-          {hero.trustedBy.map((l) => (
-            <span
-              key={l}
-              className="font-mono text-[11px] font-semibold tracking-[0.2em] text-steel-400"
-            >
-              {l}
-            </span>
-          ))}
-        </div>
-
         <div className="mx-auto mt-10 grid max-w-[760px] grid-cols-1 overflow-hidden rounded-lg border border-border-2 bg-obsidian-950 sm:grid-cols-3">
           {hero.specs.map(([k, v], i) => (
             <div

@@ -1,7 +1,7 @@
 export function CompositeIdentityDiagram() {
   return (
     <svg
-      viewBox="0 0 760 560"
+      viewBox="0 0 820 760"
       width="100%"
       role="img"
       aria-labelledby="ciTitle ciDesc"
@@ -12,155 +12,196 @@ export function CompositeIdentityDiagram() {
         Three principal rings — user, agent, and workload — overlap to form the Arcane Token at
         their intersection.
       </desc>
-      <defs>
-        <pattern id="ciDots2" width="22" height="22" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.9" fill="#1FCBA6" opacity="0.18" />
-        </pattern>
-        <radialGradient id="ciGlow2" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#3FE8C4" stopOpacity="0.55" />
-          <stop offset="60%" stopColor="#1FCBA6" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#0C6B50" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="ciTokenFill2" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#12956F" />
-          <stop offset="100%" stopColor="#052E24" />
-        </linearGradient>
-      </defs>
-      <rect width="760" height="560" fill="#07080B" />
-      <rect width="760" height="560" fill="url(#ciDots2)" opacity="0.55" />
 
-      <g>
-        <circle cx="250" cy="230" r="140" fill="none" stroke="#2B3245" strokeWidth="1" />
+      <defs>
+        <radialGradient id="ciUser" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#3FE8C4" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#3FE8C4" stopOpacity="0.01" />
+        </radialGradient>
+        <radialGradient id="ciAgent" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#D99A2B" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#D99A2B" stopOpacity="0.01" />
+        </radialGradient>
+        <radialGradient id="ciWork" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#7FB5FF" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#7FB5FF" stopOpacity="0.01" />
+        </radialGradient>
+        <filter id="ciGlow">
+          <feGaussianBlur stdDeviation="8" />
+        </filter>
+      </defs>
+
+      <g opacity="0.08">
         <circle
-          cx="250"
-          cy="230"
-          r="140"
+          cx="410"
+          cy="380"
+          r="360"
           fill="none"
           stroke="#3FE8C4"
-          strokeWidth="1.25"
-          strokeDasharray="2 6"
-          opacity="0.6"
+          strokeWidth="1"
+          strokeDasharray="2 8"
         />
-        <circle cx="510" cy="230" r="140" fill="none" stroke="#2B3245" strokeWidth="1" />
         <circle
-          cx="510"
-          cy="230"
-          r="140"
+          cx="410"
+          cy="380"
+          r="280"
           fill="none"
-          stroke="#3FE8C4"
-          strokeWidth="1.25"
-          strokeDasharray="2 6"
-          opacity="0.6"
+          stroke="#8991A6"
+          strokeWidth="1"
+          strokeDasharray="2 8"
         />
-        <circle cx="380" cy="378" r="140" fill="none" stroke="#2B3245" strokeWidth="1" />
         <circle
-          cx="380"
-          cy="378"
-          r="140"
+          cx="410"
+          cy="380"
+          r="200"
           fill="none"
-          stroke="#3FE8C4"
-          strokeWidth="1.25"
-          strokeDasharray="2 6"
-          opacity="0.6"
+          stroke="#8991A6"
+          strokeWidth="1"
+          strokeDasharray="2 8"
         />
       </g>
 
-      <circle cx="380" cy="280" r="130" fill="url(#ciGlow2)" />
+      <circle
+        cx="290"
+        cy="300"
+        r="220"
+        fill="url(#ciUser)"
+        stroke="#3FE8C4"
+        strokeWidth="1.5"
+        strokeOpacity="0.7"
+      />
+      <circle
+        cx="530"
+        cy="300"
+        r="220"
+        fill="url(#ciAgent)"
+        stroke="#D99A2B"
+        strokeWidth="1.5"
+        strokeOpacity="0.7"
+      />
+      <circle
+        cx="410"
+        cy="500"
+        r="220"
+        fill="url(#ciWork)"
+        stroke="#7FB5FF"
+        strokeWidth="1.5"
+        strokeOpacity="0.7"
+      />
 
-      {[
-        { eyebrow: 'USER', name: 'Principal', code: 'u.olsen@acme', x: 250, y: 152, iconY: 240, kind: 'user' as const },
-        { eyebrow: 'AGENT', name: 'Identity', code: 'agent.pk-93f', x: 510, y: 152, iconY: 240, kind: 'agent' as const },
-        { eyebrow: 'WORKLOAD', name: 'Attestation', code: 'pod.sre-prod-4', x: 380, y: 348, iconY: 432, kind: 'workload' as const },
-      ].map((p) => (
-        <g key={p.eyebrow}>
-          <circle cx={p.x} cy={p.iconY} r="22" fill="#141722" stroke="#3A4256" />
-          {p.kind === 'user' && (
-            <g transform={`translate(${p.x} ${p.iconY}) scale(1.4)`} stroke="#8BF5D8" strokeWidth="1.3" fill="none">
-              <circle cx="0" cy="-3.5" r="4" />
-              <path d="M-8 7.2 C-5.8 2.7, 5.8 2.7, 8 7.2" />
-            </g>
-          )}
-          {p.kind === 'agent' && (
-            <g transform={`translate(${p.x} ${p.iconY}) scale(1.4)`} stroke="#8BF5D8" strokeWidth="1.2" fill="none">
-              <rect x="-5.1" y="-5.1" width="10.2" height="10.2" rx="1.9" />
-              <path d="M-8.6 0 H-5.9 M8.6 0 H5.9 M0 -8.6 V-5.9 M0 8.6 V5.9" />
-            </g>
-          )}
-          {p.kind === 'workload' && (
-            <g transform={`translate(${p.x} ${p.iconY}) scale(1.4)`} stroke="#8BF5D8" strokeWidth="1.05" fill="none">
-              <rect x="-8.1" y="-7.6" width="16.2" height="4.2" rx="1.6" />
-              <rect x="-8.1" y="-1.5" width="16.2" height="4.2" rx="1.6" />
-              <rect x="-8.1" y="4.6" width="16.2" height="4.2" rx="1.6" />
-            </g>
-          )}
-          <text
-            x={p.x}
-            y={p.y}
-            textAnchor="middle"
-            fontFamily="DM Mono, monospace"
-            fontSize="10"
-            letterSpacing="2"
-            fill="#D99A2B"
-          >
-            {p.eyebrow}
-          </text>
-          <text
-            x={p.x}
-            y={p.y + 20}
-            textAnchor="middle"
-            fontFamily="IBM Plex Sans, sans-serif"
-            fontSize="16"
-            fontWeight="500"
-            fill="#EEF1F7"
-          >
-            {p.name}
-          </text>
-          <text
-            x={p.x}
-            y={p.y + 42}
-            textAnchor="middle"
-            fontFamily="DM Mono, monospace"
-            fontSize="12"
-            fill="#8991A6"
-          >
-            {p.code}
-          </text>
-        </g>
-      ))}
+      {/* USER cluster */}
+      <g
+        transform="translate(187 178)"
+        fill="none"
+        stroke="#3FE8C4"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      >
+        <circle cx="28" cy="28" r="26" strokeOpacity="0.35" />
+        <circle cx="28" cy="28" r="20" strokeOpacity="0.15" strokeDasharray="2 4" />
+        <circle cx="28" cy="20" r="6" />
+        <path d="M 18 42 Q 28 30 38 42" />
+        <circle cx="28" cy="28" r="1.6" fill="#3FE8C4" stroke="none" />
+      </g>
+      <g fontFamily="DM Mono, IBM Plex Mono, monospace" textAnchor="middle">
+        <text x="215" y="260" fill="#3FE8C4" fontSize="13" letterSpacing="2.5">
+          USER
+        </text>
+        <text x="215" y="280" fill="#8991A6" fontSize="11" letterSpacing="1.5">
+          u.olsen@acme
+        </text>
+      </g>
 
-      <g transform="translate(380 280)">
-        <rect
-          x="-68"
-          y="-22"
-          width="136"
-          height="44"
-          rx="6"
-          fill="url(#ciTokenFill2)"
+      {/* AGENT cluster */}
+      <g
+        transform="translate(577 178)"
+        fill="none"
+        stroke="#D99A2B"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      >
+        <circle cx="28" cy="28" r="26" strokeOpacity="0.35" />
+        <path d="M 28 10 L 43 19 L 43 37 L 28 46 L 13 37 L 13 19 Z" />
+        <circle cx="28" cy="28" r="3" fill="#D99A2B" stroke="none" />
+        <path
+          d="M 28 19 L 28 15 M 28 41 L 28 37 M 36 23 L 40 21 M 16 21 L 20 23 M 36 33 L 40 35 M 16 35 L 20 33"
+          strokeOpacity="0.8"
+        />
+        <circle cx="43" cy="19" r="1.5" fill="#D99A2B" stroke="none" />
+        <circle cx="13" cy="19" r="1.5" fill="#D99A2B" stroke="none" />
+        <circle cx="43" cy="37" r="1.5" fill="#D99A2B" stroke="none" />
+        <circle cx="13" cy="37" r="1.5" fill="#D99A2B" stroke="none" />
+      </g>
+      <g fontFamily="DM Mono, IBM Plex Mono, monospace" textAnchor="middle">
+        <text x="605" y="260" fill="#D99A2B" fontSize="13" letterSpacing="2.5">
+          AGENT
+        </text>
+        <text x="605" y="280" fill="#8991A6" fontSize="11" letterSpacing="1.5">
+          agent.pk-93f
+        </text>
+      </g>
+
+      {/* WORKLOAD cluster */}
+      <g
+        transform="translate(382 563)"
+        fill="none"
+        stroke="#7FB5FF"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      >
+        <circle cx="28" cy="28" r="26" strokeOpacity="0.35" />
+        <rect x="10" y="10" width="36" height="36" rx="2" />
+        <rect x="17" y="17" width="22" height="22" rx="1" />
+        <path
+          d="M 28 10 L 28 5 M 28 51 L 28 46 M 10 28 L 5 28 M 51 28 L 46 28"
+          strokeOpacity="0.7"
+        />
+        <circle cx="28" cy="28" r="2" fill="#7FB5FF" stroke="none" />
+      </g>
+      <g fontFamily="DM Mono, IBM Plex Mono, monospace" textAnchor="middle">
+        <text x="410" y="645" fill="#7FB5FF" fontSize="13" letterSpacing="2.5">
+          WORKLOAD
+        </text>
+        <text x="410" y="665" fill="#8991A6" fontSize="11" letterSpacing="1.5">
+          pod.sre-prod-4 · attested
+        </text>
+      </g>
+
+      {/* Intersection token */}
+      <g transform="translate(410 380)">
+        <circle r="60" fill="#07080B" stroke="#3FE8C4" strokeWidth="1.5" />
+        <circle
+          r="60"
+          fill="none"
           stroke="#3FE8C4"
           strokeWidth="1"
+          opacity="0.3"
+          filter="url(#ciGlow)"
         />
-        <text
-          x="0"
-          y="-5"
-          textAnchor="middle"
-          fontFamily="DM Mono, monospace"
-          fontSize="8"
-          letterSpacing="1.6"
-          fill="#8BF5D8"
-        >
-          ARCANE TOKEN
-        </text>
-        <text
-          x="0"
-          y="12"
-          textAnchor="middle"
-          fontFamily="IBM Plex Sans, sans-serif"
+        <g
+          fontFamily="DM Mono, IBM Plex Mono, monospace"
           fontSize="11"
-          fontWeight="500"
-          fill="#EEF1F7"
+          letterSpacing="1.8"
+          textAnchor="middle"
         >
-          Composite binding
-        </text>
+          <text y="-6" fill="#D3D8E3">
+            ARCANE
+          </text>
+          <text y="10" fill="#3FE8C4">
+            TOKEN
+          </text>
+          <text y="28" fill="#6B7389" fontSize="9">
+            ∩ ttl 15m
+          </text>
+        </g>
+      </g>
+
+      <g fill="#D99A2B">
+        <circle cx="290" cy="300" r="3" />
+        <circle cx="530" cy="300" r="3" />
+        <circle cx="410" cy="500" r="3" />
       </g>
     </svg>
   );
